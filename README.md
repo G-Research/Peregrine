@@ -9,7 +9,7 @@ how you propose to solve it.
 
 ## License
 
-Copyright 2018 G-Research
+Copyright 2019 G-Research
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use these files except in compliance with the License.
 You may obtain a copy of the License at
