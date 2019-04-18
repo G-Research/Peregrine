@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <IsPackable>false</IsPackable>
+    <PlatformTarget>x64</PlatformTarget> 
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType> 
+    <DebugSymbols>true</DebugSymbols> 
+    <Tailcalls>true</Tailcalls>
+    <Company>GResearch Ltd</Company>
+    <Authors />
+    <Copyright>Copyright © GResearch Ltd</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
+    <PackageReference Include="FSharp.Core" Version="4.5.2" />
+    <PackageReference Include="FsUnit" Version="3.4.0" />
+    <PackageReference Include="NUnit" Version="3.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" /> 
+    <PackageReference Include="NUnit3TestAdapter" Version="3.13.0" /> 
+    <PackageReference Update="System.ValueTuple" Version="4.5.0" /> 
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peregrine.ValueTypes.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="ValueOptionTests.fs" />
+    <Compile Include="ValueSeqTests.fs" />
+    <Compile Include="ValueSeqTransformTests.fs" />
+    <Compile Include="BenchmarkDotNetHelpers.fs" />
+    <Compile Include="ValueSeqAllocationTests.fs" />
+    <Compile Include="ValueSeqTransformAllocationTests.fs" />
+  </ItemGroup>
+
+</Project>
