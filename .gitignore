@@ -1,0 +1,74 @@
+##
+## This is a subset of the github maintained .net gitignore found at:
+##
+##    https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
+##
+
+# User-specific files
+*.suo
+!*.suo/
+*.user
+!*.user/
+*.userosscache
+!*.userosscache/
+*.sln.docstates
+!*.sln.docstates/
+
+# Build results
+bin/
+obj/
+*.obj
+!*.obj/
+*.dll
+!*.dll/
+*.pdb
+!*.pdb/
+*.exe
+!*.exe/
+*.exe.config
+!*.exe.config/
+*.exe.manifest
+!*.exe.manifest/
+*.dbmdl
+!*.dbmdl/
+*.jfm
+!*.jfm/
+
+# NUnitRunner output
+nunitwork/
+results/
+
+# Visual Studio 2015 cache/options directory
+.vs/
+
+# Visual Studio run settings
+launchSettings.json
+!launchSettings.json/
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+!*.[Rr]e[Ss]harper/
+*.DotSettings.user
+!*.DotSettings.user/
+
+# Visual Studio code coverage results
+*.coverage
+!*.coverage/
+*.coveragexml
+!*.coveragexml/
+
+# NuGet Packages
+*.nupkg
+!*.nupkg/
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!*.[Cc]ache/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+!*.sln.iml/

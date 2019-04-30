@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <Tailcalls>true</Tailcalls>
+    <Company>GResearch Ltd</Company>
+    <Authors />
+    <Copyright>Copyright © GResearch Ltd</Copyright>
+    <VersionPrefix>1.0.0</VersionPrefix>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ValueOption.fsi" />
+    <Compile Include="ValueEnumerators.fsi" />
+    <Compile Include="ValueSeq.fsi" />
+    <Compile Include="ValueOption.fs" />
+    <Compile Include="ValueEnumerators.fs" />
+    <Compile Include="ValueSeq.fs" />
+    <Compile Include="ValueSeqBeta.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FSharp.Core" Version="4.5.2" />
+  </ItemGroup>
+</Project>
