@@ -3,6 +3,7 @@
   <PropertyGroup>
     <PlatformTarget>x64</PlatformTarget>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>FS2003</NoWarn>
     <WarningLevel>4</WarningLevel>
     <Tailcalls>true</Tailcalls>
     <Company>GResearch Ltd</Company>
