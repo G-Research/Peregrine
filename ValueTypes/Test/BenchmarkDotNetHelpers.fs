@@ -1,7 +1,6 @@
 namespace Peregrine.ValueTypes.Test
 
 open BenchmarkDotNet.Configs
-open BenchmarkDotNet.Engines
 open BenchmarkDotNet.Jobs
 open BenchmarkDotNet.Running
 open FsUnit
@@ -15,7 +14,6 @@ module BenchmarkDotNetHelpers =
         ManualConfig.Create(DefaultConfig.Instance)
             .With(ConfigOptions.DisableOptimizationsValidator) // We don't mind testing for allocation free code in DEBUG.
             .With(Job.Default
-                      .With(RunStrategy.ColdStart)
                       .WithLaunchCount(1)
                       .WithIterationCount(1))
 
