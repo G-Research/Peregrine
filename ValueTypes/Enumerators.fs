@@ -142,3 +142,35 @@ module Enumerators =
             member this.Current : obj = this.enumerator.Current |> box
 
             member __.Dispose () = ()
+
+    [<Struct>]
+    type PredicateEnumerator<'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private predicate : 'a -> bool
+        val mutable private enumerator : 'enumerator
+        val mutable private moreItems : bool
+        
+        new (predicate : 'a -> bool, enumerator : 'enumerator) = {
+            predicate = predicate
+            enumerator = enumerator
+            moreItems = true
+        }
+        
+        interface 'a IEnumerator with
+            member this.MoveNext() : bool =
+                this.moreItems <- this.moreItems &&
+                                  this.enumerator.MoveNext() &&
+                                  this.predicate this.enumerator.Current
+                this.moreItems
+                    
+            member this.Reset () : unit =
+                    this.enumerator.Reset()
+                    this.moreItems <- true
+                    
+            member this.Current : 'a = this.enumerator.Current
+
+            member this.Current : obj = this.enumerator.Current |> box
+
+            member __.Dispose () = ()

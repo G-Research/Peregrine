@@ -79,6 +79,12 @@ module ValueSeq =
         source : ValueSeq<'a, 'enumerator>
         -> 'state
 
+    [<CompiledName("TakeWhile")>]
+    val takeWhile :
+        predicate : ('a -> bool) ->
+        source : #ValueSeq<'a, 'enumerator>
+        -> #ValueSeq<'a, 'enumerator>
+    
     /// Return a ValueSeq that ignores the first 'count' elements of the passed in ValueSeq.
     /// If the provided ValueSeq has less than 'count' elements, the empty sequence is reuturned.
     [<CompiledName("Skip")>]

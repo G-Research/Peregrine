@@ -105,6 +105,26 @@ module ValueSeq =
             currentState <- folder currentState iter.Current
         currentState
 
+    [<Struct>]
+    type PredicatedEnumerable<'a, 'enumerable, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        (predicate : 'a -> bool, enumerable : 'enumerable)
+        =
+        interface ValueSeq<'a, Enumerators.PredicateEnumerator<'a, 'enumerator>> with
+            member this.GetEnumerator () =
+                let enumerator = enumerable.GetEnumerator()
+                new Enumerators.PredicateEnumerator<'a, _>(predicate, enumerator)
+    
+    [<CompiledName("TakeWhile")>]
+    let takeWhile
+        (predicate : 'a -> bool)
+        (source : #ValueSeq<'a, 'enumerator>) :
+        'enumerable2
+        =
+        PredicatedEnumerable(predicate, source)
+    
     [<CompiledName("Skip")>]
     let skip
         (count : int)

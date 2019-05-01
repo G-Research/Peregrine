@@ -44,3 +44,14 @@ module Enumerators =
         val mutable private counter : int
         new : int * 'enumerator -> TruncatingEnumerator<'a, 'enumerator>
         interface 'a IEnumerator
+        
+    [<Struct>]
+    type PredicateEnumerator<'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private predicate : 'a -> bool
+        val mutable private enumerator : 'enumerator
+        val mutable private moreItems : bool
+        new : ('a -> bool) * 'enumerator -> PredicateEnumerator<'a, 'enumerator>
+        interface 'a IEnumerator 
