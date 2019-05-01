@@ -9,7 +9,6 @@
     <Company>GResearch Ltd</Company>
     <Authors />
     <Copyright>Copyright © GResearch Ltd</Copyright>
-    <VersionPrefix>1.0.0</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
