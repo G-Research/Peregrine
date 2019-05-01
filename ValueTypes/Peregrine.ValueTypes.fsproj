@@ -13,13 +13,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="DomainTypes.fsi" />
     <Compile Include="ValueOption.fsi" />
-    <Compile Include="ValueEnumerators.fsi" />
+    <Compile Include="Enumerators.fsi" />
+    <Compile Include="Enumerables.fsi" />
     <Compile Include="ValueSeq.fsi" />
+    <Compile Include="DomainTypes.fs" />
     <Compile Include="ValueOption.fs" />
-    <Compile Include="ValueEnumerators.fs" />
+    <Compile Include="Enumerators.fs" />
+    <Compile Include="Enumerables.fs" />
     <Compile Include="ValueSeq.fs" />
-    <Compile Include="ValueSeqBeta.fs" />
   </ItemGroup>
 
   <ItemGroup>
