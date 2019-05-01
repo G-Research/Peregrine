@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
-    <PackageReference Include="FSharp.Core" Version="4.5.2" />
+    <PackageReference Include="FSharp.Core" Version="4.6.2" />
     <PackageReference Include="FsUnit" Version="3.4.0" />
     <PackageReference Include="NUnit" Version="3.11.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" /> 
