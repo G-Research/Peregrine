@@ -22,17 +22,17 @@ module ValueSeqAllocationTests =
 
         [<Benchmark>]
         member this.LengthofArray () =
-            let length = ValueSeq.count arrayBackedData.Value
+            let _ = ValueSeq.count arrayBackedData.Value
             ()
 
         [<Benchmark>]
         member this.LengthOfList () =
-            let length = listBackedData.Value |> ValueSeq.count
+            let _ = listBackedData.Value |> ValueSeq.count
             ()
 
         [<Benchmark>]
         member this.TryHead () =
-            let head = arrayBackedData.Value |> ValueSeq.tryHead |> ValueOption.get
+            let _ = arrayBackedData.Value |> ValueSeq.tryHead |> ValueOption.get
             ()
 
         member val IterAction =
@@ -45,7 +45,7 @@ module ValueSeqAllocationTests =
 
         member val IteriAction =
             let mutable counter = 0
-            (fun x i -> counter <- counter + x) |> id
+            (fun x _ -> counter <- counter + x) |> id
 
         [<Benchmark>]
         member this.Iteri () =
@@ -56,25 +56,7 @@ module ValueSeqAllocationTests =
 
         [<Benchmark>]
         member this.Fold () =
-            let sum = arrayBackedData.Value |> ValueSeq.fold this.FoldAction 0
-            ()
-
-        [<Benchmark>]
-        member this.Foldn () =
-            let sum = arrayBackedData.Value |> ValueSeq.foldn 4 this.FoldAction 0
-            ()
-
-        [<Benchmark>]
-        member this.FoldFromN () =
-            let sum = arrayBackedData.Value |> ValueSeq.foldFromN 4 this.FoldAction 0
-            ()
-
-        member val FoldPredicate =
-            (fun _ _ -> true) |> id
-
-        [<Benchmark>]
-        member this.FoldWhile () =
-            let sum = arrayBackedData.Value |> ValueSeq.foldWhile this.FoldPredicate this.FoldAction 0
+            let _ = arrayBackedData.Value |> ValueSeq.fold this.FoldAction 0
             ()
 
     [<Test>]

@@ -7,51 +7,53 @@ module Enumerators =
 
     /// Value-type enumerator for an array
     [<Struct>]
-    type 'a ArrayEnumerator =
+    type 'a Array =
         val private array : 'a array
         val mutable private currentIndex : int
-        new : 'a array -> 'a ArrayEnumerator
+        new : 'a array -> 'a Array
         interface 'a IEnumerator
 
     /// Value-type enumerator for a list
     [<Struct>]
-    type 'a ListEnumerator =
+    type 'a List =
         val private list : 'a list
         val mutable private currentHead : 'a list voption
-        new : 'a list -> 'a ListEnumerator
+        new : 'a list -> 'a List
         interface 'a IEnumerator
 
     /// Value-type enumerator that skips the first n elements of another value-type enumerator
     [<Struct>]
-    type SkippingEnumerator<'a, 'enumerator
+    type Skipping<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
         val private skip : int
         val mutable private enumerator : 'enumerator
         val mutable private skippingDone : bool
-        new : int * 'enumerator -> SkippingEnumerator<'a, 'enumerator>
+        new : int * 'enumerator -> Skipping<'a, 'enumerator>
         interface 'a IEnumerator
     
     /// Value-type enumerator that truncates to the first n elements of another value-type enumerator    
     [<Struct>]
-    type TruncatingEnumerator<'a, 'enumerator
+    type Truncating<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
         val private truncateTo : int
         val mutable private enumerator : 'enumerator
         val mutable private counter : int
-        new : int * 'enumerator -> TruncatingEnumerator<'a, 'enumerator>
+        new : int * 'enumerator -> Truncating<'a, 'enumerator>
         interface 'a IEnumerator
         
+    /// Value-type enumerator that takes elements of another value-type enumerator as long as the provided predicate
+    /// function returns true
     [<Struct>]
-    type PredicateEnumerator<'a, 'enumerator
+    type Predicated<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
         val private predicate : 'a -> bool
         val mutable private enumerator : 'enumerator
         val mutable private moreItems : bool
-        new : ('a -> bool) * 'enumerator -> PredicateEnumerator<'a, 'enumerator>
+        new : ('a -> bool) * 'enumerator -> Predicated<'a, 'enumerator>
         interface 'a IEnumerator 

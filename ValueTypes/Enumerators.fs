@@ -6,7 +6,7 @@ open System.Collections.Generic
 module Enumerators =
 
     [<Struct>]
-    type 'a ArrayEnumerator =
+    type 'a Array =
         val mutable private currentIndex : int
         val private array : 'a array
 
@@ -38,7 +38,7 @@ module Enumerators =
 
 
     [<Struct>]
-    type 'a ListEnumerator =
+    type 'a List =
         val private list : 'a list
         val mutable private currentHead : 'a list voption
 
@@ -71,7 +71,7 @@ module Enumerators =
             member __.Dispose () = ()
 
     [<Struct>]
-    type SkippingEnumerator<'a, 'enumerator
+    type Skipping<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
@@ -110,7 +110,7 @@ module Enumerators =
             member __.Dispose () = ()
 
     [<Struct>]
-    type TruncatingEnumerator<'a, 'enumerator
+    type Truncating<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
@@ -144,7 +144,7 @@ module Enumerators =
             member __.Dispose () = ()
 
     [<Struct>]
-    type PredicateEnumerator<'a, 'enumerator
+    type Predicated<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =

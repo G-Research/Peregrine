@@ -57,49 +57,40 @@ module ValueSeqTests =
     let ``Test ValueSeq.fold over an array`` array =
         array |> ValueSeq.ofArray |> ValueSeq.fold (+) 0
 
-    [<TestCaseSource("arraysForSumming")>]
-    let ``Test ValueSeq.foldi over an array`` array =
-        let mutable lastIndex = -1
-        let folder sum index value =
-            index |> should equal (lastIndex + 1)
-            lastIndex <- index
-            sum + value
-        array |> ValueSeq.ofArray |> ValueSeq.foldi folder 0
-
     [<Test>]
     let ``Test ValueSeq.foldn over a longer than n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldn 3 (+) 0 |> should equal 7
+        array |> ValueSeq.ofArray |> ValueSeq.truncate 3 |> ValueSeq.fold (+) 0 |> should equal 7
 
     [<Test>]
     let ``Test ValueSeq.foldn over a length = n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldn 5 (+) 0 |> should equal 31
+        array |> ValueSeq.ofArray |> ValueSeq.truncate 5 |> ValueSeq.fold (+) 0 |> should equal 31
 
     [<Test>]
     let ``Test ValueSeq.foldn over a shorter than n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldn 6 (+) 0 |> should equal 31
+        array |> ValueSeq.ofArray |> ValueSeq.truncate 6 |> ValueSeq.fold (+) 0 |> should equal 31
 
     [<Test>]
     let ``Test ValueSeq.foldFromN over a longer than n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldFromN 3 (+) 0 |> should equal 28
+        array |> ValueSeq.ofArray |> ValueSeq.skip 2 |> ValueSeq.fold (+) 0 |> should equal 28
 
     [<Test>]
     let ``Test ValueSeq.foldFromN over a length = n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldFromN 5 (+) 0 |> should equal 16
+        array |> ValueSeq.ofArray |> ValueSeq.skip 4 |> ValueSeq.fold (+) 0 |> should equal 16
 
     [<Test>]
     let ``Test ValueSeq.foldFromN over a shorter than n sequence`` () =
         let array = [| 1; 2; 4; 8; 16 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldFromN 6 (+) 0 |> should equal 0
+        array |> ValueSeq.ofArray |> ValueSeq.skip 5 |> ValueSeq.fold (+) 0 |> should equal 0
 
     [<Test>]
     let ``TestValueSeq.foldWhile sum the values as long as the sum is less than the value`` () =
         let array = [| 1; 2; 3; 4 |]
-        array |> ValueSeq.ofArray |> ValueSeq.foldWhile (fun sum item -> item >= sum) (+) 0 |> should equal 6
+        array |> ValueSeq.ofArray |> ValueSeq.takeWhile ((>) 4) |> ValueSeq.fold (+) 0 |> should equal 6
 
     [<Test>]
     let ``Test ValueSeq.tryHead with a value`` () =
