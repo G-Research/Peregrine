@@ -12,7 +12,7 @@ module BenchmarkDotNetHelpers =
     /// This is intended for running tests that check that code doesn't allocate; it shouldn't be used for actual benchmarking.
     let coldStartSingleRunConfig =
         ManualConfig.Create(DefaultConfig.Instance)
-            //.With(ConfigOptions.DisableOptimizationsValidator) // We don't mind testing for allocation free code in DEBUG.
+            .With(ConfigOptions.DisableOptimizationsValidator) // We don't mind testing for allocation free code in DEBUG.
             .With(Job.Default
                       .WithLaunchCount(1)
                       .WithIterationCount(1))

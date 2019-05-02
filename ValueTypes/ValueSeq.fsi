@@ -85,7 +85,7 @@ module ValueSeq =
         source : 'enumerable ->
         Enumerables.SkippedValueSeq<'a, 'enumerator, 'enumerable>
 
-    /// Return a ValueSeq only iterates over the first 'count' elements of the passed in ValueSeq.
+    /// Return a ValueSeq that only iterates over the first 'count' elements of the passed in ValueSeq.
     /// If the provided ValueSeq has less than 'count' elements, then this is in effect a no-op.
     [<CompiledName("Truncate")>]
     val truncate<'enumerable, 'a, 'enumerator
@@ -96,6 +96,18 @@ module ValueSeq =
         count : int ->
         source : 'enumerable ->
         Enumerables.TruncatedValueSeq<'a, 'enumerator, 'enumerable>
+    
+    /// Return a ValueSeq that contains the elements of the passed in ValueSeq but with the mapping function applied.
+    [<CompiledName("Map")>]
+    val map<'a, 'b, 'enumerable, 'enumerator
+        when 'enumerable :> ValueSeq<'a, 'enumerator>
+        and 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        :
+        mapping : ('a -> 'b) ->
+        source : 'enumerable ->
+        Enumerables.MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
+        
     
     /// Returns a ValueSeq enumerable backed by the given array
     [<CompiledName("OfArray")>]

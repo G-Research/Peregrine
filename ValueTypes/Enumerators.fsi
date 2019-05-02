@@ -56,4 +56,16 @@ module Enumerators =
         val mutable private enumerator : 'enumerator
         val mutable private moreItems : bool
         new : ('a -> bool) * 'enumerator -> Predicated<'a, 'enumerator>
-        interface 'a IEnumerator 
+        interface 'a IEnumerator
+        
+    /// Value-type enumerator that transforms the elements of another value-type enumerator according to the given
+    /// mapping function.
+    [<Struct>]
+    type Mapped<'a, 'b, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private mapping : 'a -> 'b
+        val mutable private enumerator : 'enumerator
+        new : ('a -> 'b) * 'enumerator -> Mapped<'a, 'b, 'enumerator>
+        interface 'b IEnumerator

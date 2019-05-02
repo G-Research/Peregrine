@@ -128,3 +128,24 @@ module ValueSeqTransformTests =
         |> ValueSeq.takeWhile (fun x -> not (x = 4))
         |> ValueSeq.toSeq
         |> should equal [1; 2]
+        
+    //
+    // ValueSeq.map tests
+    //
+    
+    [<Test>]
+    let ``Test mapping over some sequence`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.map (fun x -> x * 2)
+        |> ValueSeq.toSeq
+        |> should equal [2; 4; 8; 16]
+        
+    [<Test>]
+    let ``Test mapping over the empty sequence`` () =
+        []
+        |> ValueSeq.ofList
+        |> ValueSeq.map id
+        |> ValueSeq.toSeq
+        |> should be Empty
+        

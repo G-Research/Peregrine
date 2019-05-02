@@ -50,3 +50,15 @@ module Enumerables =
             member this.GetEnumerator () =
                 let enumerator = enumerable.GetEnumerator()
                 new Enumerators.Predicated<'a, _>(predicate, enumerator)
+
+    [<Struct>]
+    type MappedValueSeq<'a, 'b, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        (mapping : 'a -> 'b, enumerable : 'enumerable)
+        =
+        interface ValueSeq<'b, Enumerators.Mapped<'a, 'b, 'enumerator>> with
+            member this.GetEnumerator () =
+                let enumerator = enumerable.GetEnumerator()
+                new Enumerators.Mapped<'a, 'b, _>(mapping, enumerator)
