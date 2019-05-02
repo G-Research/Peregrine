@@ -6,7 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="BenchmarkDotNet" Version="0.11.5" />
     <PackageReference Include="FSharp.Core" Version="4.6.2" />
     <PackageReference Include="FsUnit" Version="3.4.0" />
     <PackageReference Include="NUnit" Version="3.11.0" />
@@ -23,9 +22,6 @@
     <Compile Include="ValueOptionTests.fs" />
     <Compile Include="ValueSeqTests.fs" />
     <Compile Include="ValueSeqTransformTests.fs" />
-    <Compile Include="BenchmarkDotNetHelpers.fs" />
-    <Compile Include="ValueSeqAllocationTests.fs" />
-    <Compile Include="ValueSeqTransformAllocationTests.fs" />
   </ItemGroup>
 
 </Project>

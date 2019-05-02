@@ -4,6 +4,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Peregrine.ValueTypes", "Val
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Peregrine.ValueTypes.Test", "ValueTypes\Test\Peregrine.ValueTypes.Test.fsproj", "{10243B19-3585-4913-8D9C-22758AFC340C}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Peregrine.ValueTypes.Bench", "ValueTypes\Bench\Peregrine.ValueTypes.Bench.fsproj", "{FD1B69D9-CD2B-4AC8-BBE0-DA71D1477F0B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{10243B19-3585-4913-8D9C-22758AFC340C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{10243B19-3585-4913-8D9C-22758AFC340C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{10243B19-3585-4913-8D9C-22758AFC340C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD1B69D9-CD2B-4AC8-BBE0-DA71D1477F0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD1B69D9-CD2B-4AC8-BBE0-DA71D1477F0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD1B69D9-CD2B-4AC8-BBE0-DA71D1477F0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD1B69D9-CD2B-4AC8-BBE0-DA71D1477F0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
