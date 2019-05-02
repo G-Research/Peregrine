@@ -8,10 +8,10 @@ build:
   verbosity: minimal
 after_build:
 - ps: dotnet pack
-- ps: >-
-    dotnet test --no-build --no-restore --logger:Appveyor
-
-    dotnet nbench
+test_script:
+- ps: dotnet test --no-build --no-restore --logger:Appveyor
+- ps: cd ValueTypes\Bench
+- ps: dotnet nbench
 artifacts:
 - path: '**\*.nupkg'
   name: NuGet packages
