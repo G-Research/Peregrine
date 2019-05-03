@@ -19,15 +19,15 @@ module ValueSeqTransformAllocationTests =
 
         [<Benchmark>]
         member this.Skip () =
-            let last3 = Beta.ValueSeq.skip 2 arrayBackedData.Value
-            let last2 = Beta.ValueSeq.skip 1 last3
-            let sum = Beta.ValueSeq.fold2 this.FoldAction 0 last2
+            let last3 = ValueSeq.skip 2 arrayBackedData.Value
+            let last2 = ValueSeq.skip 1 last3
+            let _ = ValueSeq.fold this.FoldAction 0 last2
             ()
 
         [<Benchmark>]
         member this.Truncate () =
-            let first4 = Beta.ValueSeq.truncate 4 arrayBackedData.Value
-            let sum = Beta.ValueSeq.fold2 this.FoldAction 0 first4
+            let first4 = ValueSeq.truncate 4 arrayBackedData.Value
+            let _ = ValueSeq.fold this.FoldAction 0 first4
             ()
 
     [<Test>]

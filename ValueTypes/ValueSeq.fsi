@@ -2,14 +2,6 @@ namespace Peregrine.ValueTypes
 
 open System.Collections.Generic
 
-/// An enumerable whose enumerator is a struct.
-/// By defining the enumerator as a type parameter, we can
-type ValueSeq<'a, 'enumerator
-    when 'enumerator :> IEnumerator<'a>
-    and 'enumerator : struct>
-    =
-    abstract member GetEnumerator : unit -> 'enumerator
-
 /// This module contains functions for operating on ValueSeqs, which are value-type enumerables
 [<RequireQualifiedAccess>]
 module ValueSeq =
@@ -87,17 +79,39 @@ module ValueSeq =
         source : ValueSeq<'a, 'enumerator>
         -> 'state
 
+    /// Return a ValueSeq that ignores the first 'count' elements of the passed in ValueSeq.
+    /// If the provided ValueSeq has less than 'count' elements, the empty sequence is reuturned.
+    [<CompiledName("Skip")>]
+    val skip<'enumerable, 'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>> :
+        count : int ->
+        source : 'enumerable
+        -> Enumerables.SkippedValueSeq<'a, 'enumerator, 'enumerable>
+
+    /// Return a ValueSeq only iterates over the first 'count' elements of the passed in ValueSeq.
+    /// If the provided ValueSeq has less than 'count' elements, then this is in effect a no-op.
+    [<CompiledName("Truncate")>]
+    val truncate<'enumerable, 'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>> :
+        count : int ->
+        source : 'enumerable
+        -> Enumerables.TruncatedValueSeq<'a, 'enumerator, 'enumerable>
+    
     /// Returns a ValueSeq enumerable backed by the given array
     [<CompiledName("OfArray")>]
     val ofArray<'a> :
         array : 'a array
-        -> ValueSeq<'a, ValueEnumerators.ArrayEnumerator<'a>>
+        -> ValueSeq<'a, Enumerators.ArrayEnumerator<'a>>
 
     /// Returns a ValueSeq enumerable backed by the given list
     [<CompiledName("OfList")>]
     val ofList<'a> :
         list : 'a list
-        -> ValueSeq<'a, ValueEnumerators.ListEnumerator<'a>>
+        -> ValueSeq<'a, Enumerators.ListEnumerator<'a>>
 
     /// Wrap up the value-type sequence as a regular seq enumerable
     /// Note: this definitely allocates when used

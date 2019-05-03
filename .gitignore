@@ -40,6 +40,7 @@ results/
 
 # Visual Studio 2015 cache/options directory
 .vs/
+.vscode/
 
 # Visual Studio run settings
 launchSettings.json

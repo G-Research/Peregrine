@@ -2,18 +2,6 @@ namespace Peregrine.ValueTypes
 
 open System.Collections.Generic
 
-/// For an enumerable whose enumerator is a struct (to avoid allocation), by implementing this interface, consuming
-/// code can be written to take any enumerable without allocating memory due to boxing the struct into an IEnumerator.
-///
-/// The F# and C# compilers can take code that uses IEnumerable and emit code that doesn't allocate (see e.g. the
-/// 'foreach' keyword in C#). Unfortunately we cannot enforce usage of IEnumerable to these cases so this interface
-/// exists to explicitly call out the places where we care about not allocating heap objects, and allows us to avoid it.
-type ValueSeq<'a, 'enumerator
-    when 'enumerator :> IEnumerator<'a>
-    and 'enumerator : struct>
-    =
-    abstract member GetEnumerator : unit -> 'enumerator
-
 [<RequireQualifiedAccess>]
 module ValueSeq =
 
@@ -117,10 +105,25 @@ module ValueSeq =
             currentState <- folder currentState iter.Current
         currentState
 
-
+    [<CompiledName("Skip")>]
+    let skip
+        (count : int)
+        (source : #ValueSeq<'a, 'enumerator>)
+        : Enumerables.SkippedValueSeq<_,_,_>
+        =
+        Enumerables.SkippedValueSeq(count, source)
+    
+    [<CompiledName("Truncate")>]
+    let truncate
+        (count : int)
+        (source : #ValueSeq<'a,_>)
+        : Enumerables.TruncatedValueSeq<_,_,_>
+        =
+        Enumerables.TruncatedValueSeq(count, source)
+    
     type ArrayEnumerable<'a> (array : 'a array) =
-        interface ValueSeq<'a, ValueEnumerators.ArrayEnumerator<'a>> with
-            member this.GetEnumerator () = new ValueEnumerators.ArrayEnumerator<'a>(array)
+        interface ValueSeq<'a, Enumerators.ArrayEnumerator<'a>> with
+            member this.GetEnumerator () = new Enumerators.ArrayEnumerator<'a>(array)
 
     [<CompiledName("OfArray")>]
     let ofArray (array : 'a array) : ValueSeq<'a,_>=
@@ -128,8 +131,8 @@ module ValueSeq =
 
 
     type ListEnumerable<'a> (list : 'a list) =
-        interface ValueSeq<'a, ValueEnumerators.ListEnumerator<'a>> with
-            member this.GetEnumerator () = new ValueEnumerators.ListEnumerator<'a>(list)
+        interface ValueSeq<'a, Enumerators.ListEnumerator<'a>> with
+            member this.GetEnumerator () = new Enumerators.ListEnumerator<'a>(list)
 
     [<CompiledName("OfList")>]
     let ofList (list : 'a list) : ValueSeq<'a,_> =
