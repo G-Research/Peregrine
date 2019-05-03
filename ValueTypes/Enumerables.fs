@@ -4,6 +4,16 @@ open System.Collections.Generic
 
 [<RequireQualifiedAccess>]
 module Enumerables =
+
+    [<Struct>]    
+    type ArrayValueSeq<'a> (array : 'a array) =
+        interface ValueSeq<'a, Enumerators.Array<'a>> with
+            member this.GetEnumerator () = new Enumerators.Array<'a>(array)
+
+    [<Struct>]    
+    type ListValueSeq<'a> (list : 'a list) =
+        interface ValueSeq<'a, Enumerators.List<'a>> with
+            member this.GetEnumerator () = new Enumerators.List<'a>(list)
     
     [<Struct>]
     type SkippedValueSeq<'a, 'enumerator, 'enumerable
@@ -12,10 +22,10 @@ module Enumerables =
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
         (count : int, enumerable : 'enumerable)
         =
-        interface ValueSeq<'a, Enumerators.SkippingEnumerator<'a, 'enumerator>> with
+        interface ValueSeq<'a, Enumerators.Skipping<'a, 'enumerator>> with
             member this.GetEnumerator () =
                 let enumerator = enumerable.GetEnumerator ()
-                new Enumerators.SkippingEnumerator<'a, _>(count, enumerator)
+                new Enumerators.Skipping<'a, _>(count, enumerator)
     
     [<Struct>]
     type TruncatedValueSeq<'a, 'enumerator, 'enumerable
@@ -24,8 +34,19 @@ module Enumerables =
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
         (count : int, enumerable : 'enumerable)
         =
-        interface ValueSeq<'a, Enumerators.TruncatingEnumerator<'a, 'enumerator>> with
+        interface ValueSeq<'a, Enumerators.Truncating<'a, 'enumerator>> with
             member this.GetEnumerator () =
                 let enumerator = enumerable.GetEnumerator ()
-                new Enumerators.TruncatingEnumerator<'a, _>(count, enumerator)
+                new Enumerators.Truncating<'a, _>(count, enumerator)
 
+    [<Struct>]
+    type PredicatedValueSeq<'a, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        (predicate : 'a -> bool, enumerable : 'enumerable)
+        =
+        interface ValueSeq<'a, Enumerators.Predicated<'a, 'enumerator>> with
+            member this.GetEnumerator () =
+                let enumerator = enumerable.GetEnumerator()
+                new Enumerators.Predicated<'a, _>(predicate, enumerator)

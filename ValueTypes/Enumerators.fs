@@ -6,7 +6,7 @@ open System.Collections.Generic
 module Enumerators =
 
     [<Struct>]
-    type 'a ArrayEnumerator =
+    type 'a Array =
         val mutable private currentIndex : int
         val private array : 'a array
 
@@ -38,7 +38,7 @@ module Enumerators =
 
 
     [<Struct>]
-    type 'a ListEnumerator =
+    type 'a List =
         val private list : 'a list
         val mutable private currentHead : 'a list voption
 
@@ -71,7 +71,7 @@ module Enumerators =
             member __.Dispose () = ()
 
     [<Struct>]
-    type SkippingEnumerator<'a, 'enumerator
+    type Skipping<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
@@ -110,7 +110,7 @@ module Enumerators =
             member __.Dispose () = ()
 
     [<Struct>]
-    type TruncatingEnumerator<'a, 'enumerator
+    type Truncating<'a, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
@@ -137,6 +137,38 @@ module Enumerators =
                 this.enumerator.Reset ()
                 this.counter <- 0
 
+            member this.Current : 'a = this.enumerator.Current
+
+            member this.Current : obj = this.enumerator.Current |> box
+
+            member __.Dispose () = ()
+
+    [<Struct>]
+    type Predicated<'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private predicate : 'a -> bool
+        val mutable private enumerator : 'enumerator
+        val mutable private moreItems : bool
+        
+        new (predicate : 'a -> bool, enumerator : 'enumerator) = {
+            predicate = predicate
+            enumerator = enumerator
+            moreItems = true
+        }
+        
+        interface 'a IEnumerator with
+            member this.MoveNext() : bool =
+                this.moreItems <- this.moreItems &&
+                                  this.enumerator.MoveNext() &&
+                                  this.predicate this.enumerator.Current
+                this.moreItems
+                    
+            member this.Reset () : unit =
+                    this.enumerator.Reset()
+                    this.moreItems <- true
+                    
             member this.Current : 'a = this.enumerator.Current
 
             member this.Current : obj = this.enumerator.Current |> box
