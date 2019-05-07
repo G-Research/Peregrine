@@ -32,7 +32,6 @@ module ValueSeqTransformAllocationTests =
             let _ = ValueSeq.fold this.AddFunc 0 first4
             ()
         
-            
         [<Benchmark>]
         member this.TakeWhile () =
             let until4 = ValueSeq.takeWhile this.Not4Func arrayBackedData.Value
@@ -44,6 +43,6 @@ module ValueSeqTransformAllocationTests =
             let times2 = ValueSeq.map this.Times2Func arrayBackedData.Value
             let _ = ValueSeq.fold this.AddFunc 0 times2
             ()
-    
+
     [<Test>]
     let runTests () = BenchmarkDotNetHelpers.assertAllocationFree<ValueSeqTransformAllocationBenchmark> ()
