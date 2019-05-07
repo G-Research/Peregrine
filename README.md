@@ -1,5 +1,7 @@
 # Peregrine
 
+[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+
 ## Contributing
 
 We welcome new contributors! We'll happily receive PRs for bug fixes
