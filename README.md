@@ -1,6 +1,6 @@
 # Peregrine
 
-[https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva?svg=true)
+[![Build status](https://ci.appveyor.com/api/projects/status/71k4am4yauin1gba/branch/master?svg=true)](https://ci.appveyor.com/project/G-Research/peregrine/branch/master)
 
 ## Contributing
 
