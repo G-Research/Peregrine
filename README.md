@@ -2,6 +2,9 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/71k4am4yauin1gba/branch/master?svg=true)](https://ci.appveyor.com/project/G-Research/peregrine/branch/master)
 
+This is the home of the Peregrine series of code for real-time and performant applications. It consists of:
+* [Peregrine.ValueTypes](ValueTypes) - F# functions for manipulating data strucures in ways that don't allocate
+
 ## Contributing
 
 We welcome new contributors! We'll happily receive PRs for bug fixes
