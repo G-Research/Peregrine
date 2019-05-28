@@ -91,3 +91,40 @@ module ValueSeqTransformTests =
         |> ValueSeq.truncate 2
         |> ValueSeq.toSeq
         |> should equal [2; 4]
+        
+    //
+    // ValueSeq.takeWhile tests
+    //
+    
+    [<TestCase(true)>]
+    [<TestCase(false)>]
+    let ``Test taking from an empty sequence`` predicateValue =
+        []
+        |> ValueSeq.ofList
+        |> ValueSeq.takeWhile (fun _ -> predicateValue)
+        |> ValueSeq.toSeq
+        |> should be Empty
+        
+    [<Test>]
+    let ``Test taking everything`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.takeWhile (fun _ -> true)
+        |> ValueSeq.toSeq
+        |> should equal [1; 2; 4; 8]
+        
+    [<Test>]
+    let ``Test taking nothing`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.takeWhile (fun _ -> false)
+        |> ValueSeq.toSeq
+        |> should be Empty
+        
+    [<Test>]
+    let ``Test taking some items`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.takeWhile (fun x -> not (x = 4))
+        |> ValueSeq.toSeq
+        |> should equal [1; 2]

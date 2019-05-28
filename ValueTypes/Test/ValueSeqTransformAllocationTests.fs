@@ -29,6 +29,14 @@ module ValueSeqTransformAllocationTests =
             let first4 = ValueSeq.truncate 4 arrayBackedData.Value
             let _ = ValueSeq.fold this.FoldAction 0 first4
             ()
+        
+        member val Predicate = (fun x -> not(x = 4)) |> id
+            
+        [<Benchmark>]
+        member this.TakeWhile () =
+            let until4 = ValueSeq.takeWhile this.Predicate arrayBackedData.Value
+            let _ = ValueSeq.fold this.FoldAction 0 until4
+            ()
 
     [<Test>]
     let runTests () = BenchmarkDotNetHelpers.assertAllocationFree<ValueSeqTransformAllocationBenchmark> ()
