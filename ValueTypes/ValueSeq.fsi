@@ -107,8 +107,7 @@ module ValueSeq =
         mapping : ('a -> 'b) ->
         source : 'enumerable ->
         Enumerables.MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
-        
-    
+            
     /// Returns a ValueSeq enumerable backed by the given array
     [<CompiledName("OfArray")>]
     val ofArray<'a> :
