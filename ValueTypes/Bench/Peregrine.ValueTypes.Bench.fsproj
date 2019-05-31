@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net472</TargetFrameworks>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="ValueSeqAllocationTests.fs" />
+    <Compile Include="ValueSeqTransformAllocationTests.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Appveyor.TestLogger" Version="2.0.0" />
+    <PackageReference Update="FSharp.Core" Version="4.5.2" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
+    <PackageReference Include="NBench" Version="1.2.2" />
+    <DotNetCliToolReference Include="dotnet-nbench" Version="1.2.2" />
+    <PackageReference Include="NBench.Runner" Version="1.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Peregrine.ValueTypes.fsproj" />
+  </ItemGroup>
+
+</Project>

@@ -7,9 +7,11 @@ build:
   project: Peregrine.sln
   verbosity: minimal
 after_build:
-- ps: dotnet pack
+- ps: dotnet pack --no-build
 test_script:
-- ps: dotnet test --no-build --no-restore --logger:Appveyor
+- ps: dotnet test --no-build --logger:Appveyor
+- ps: cd ValueTypes\Bench
+- ps: dotnet nbench
 artifacts:
 - path: '**\*.nupkg'
   name: NuGet packages

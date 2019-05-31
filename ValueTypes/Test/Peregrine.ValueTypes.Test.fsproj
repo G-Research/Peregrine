@@ -23,9 +23,6 @@
     <Compile Include="ValueOptionTests.fs" />
     <Compile Include="ValueSeqTests.fs" />
     <Compile Include="ValueSeqTransformTests.fs" />
-    <Compile Include="BenchmarkDotNetHelpers.fs" />
-    <Compile Include="ValueSeqAllocationTests.fs" />
-    <Compile Include="ValueSeqTransformAllocationTests.fs" />
   </ItemGroup>
 
 </Project>
