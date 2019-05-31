@@ -174,3 +174,27 @@ module Enumerators =
             member this.Current : obj = this.enumerator.Current |> box
 
             member __.Dispose () = ()
+
+    [<Struct>]
+    type Mapped<'a, 'b, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private mapping : 'a -> 'b
+        val mutable private enumerator : 'enumerator
+        
+        new (mapping : 'a -> 'b, enumerator : 'enumerator) = {
+            mapping = mapping
+            enumerator = enumerator
+        }
+        
+        interface 'b IEnumerator with
+            member this.MoveNext() : bool = this.enumerator.MoveNext()
+                
+            member this.Reset () : unit = this.enumerator.Reset()
+                
+            member this.Current : 'b = this.enumerator.Current |> this.mapping
+            
+            member this.Current : obj = this.enumerator.Current |> this.mapping |> box
+            
+            member this.Dispose () = this.enumerator.Dispose()

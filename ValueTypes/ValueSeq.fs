@@ -77,6 +77,14 @@ module ValueSeq =
         =
         Enumerables.TruncatedValueSeq(count, source)
     
+    [<CompiledName("Map")>]
+    let map
+        (mapping : 'a -> 'b)
+        (source : #ValueSeq<'a,_>)
+        : Enumerables.MappedValueSeq<_,_,_,_>
+        =
+        Enumerables.MappedValueSeq(mapping, source)
+    
     [<CompiledName("OfArray")>]
     let ofArray (array : 'a array) =
         Enumerables.ArrayValueSeq(array)
