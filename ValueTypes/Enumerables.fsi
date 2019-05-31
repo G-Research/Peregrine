@@ -41,3 +41,12 @@ module Enumerables =
         =
         new : ('a -> bool) * 'enumerable -> PredicatedValueSeq<'a, 'enumerator, 'enumerable>
         interface ValueSeq<'a, Enumerators.Predicated<'a, 'enumerator>>
+
+    [<Struct; NoEquality; NoComparison>]
+    type MappedValueSeq<'a, 'b, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        =
+        new : ('a -> 'b) * 'enumerable -> MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
+        interface ValueSeq<'b, Enumerators.Mapped<'a, 'b, 'enumerator>>
