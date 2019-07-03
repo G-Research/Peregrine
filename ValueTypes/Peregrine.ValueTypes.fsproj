@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Description>F# library for dealing with value types with the specific goal of writing allocation free F# code</Description>
+    <PackageTags>g-research;gresearch;F#;.net;value-types;allocation-free</PackageTags>
+    <PackageProjectUrl>https://github.com/G-Research/Peregrine</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/G-Research/Peregrine/tree/master/ValueTypes</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
   </PropertyGroup>
 
   <ItemGroup>

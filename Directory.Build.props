@@ -6,9 +6,9 @@
     <NoWarn>FS2003</NoWarn>
     <WarningLevel>4</WarningLevel>
     <Tailcalls>true</Tailcalls>
-    <Company>GResearch Ltd</Company>
-    <Authors />
-    <Copyright>Copyright © GResearch Ltd</Copyright>
+    <Authors>G-Research</Authors>
+    <Copyright>Copyright © G-Research 2019</Copyright>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning">
