@@ -73,3 +73,6 @@ _ReSharper*/
 .idea/
 *.sln.iml
 !*.sln.iml/
+
+# Visual Studio Code Ionide plugin
+.ionide/
