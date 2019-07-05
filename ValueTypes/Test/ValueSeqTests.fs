@@ -102,6 +102,14 @@ module ValueSeqTests =
         let result = Array.empty |> ValueSeq.ofArray |> ValueSeq.tryHead
         result |> should equal ValueNone
 
+    let ``TestValueSeq.tryLast with a sequence`` () =
+        [| 1 |]
+
+    [<Test>]
+    let ``Test ValueSeq.tryLast with an empty sequence`` () =
+        let result = Array.empty |> ValueSeq.ofArray |> ValueSeq.tryHead
+        result |> should equal ValueNone
+
     let listsForSumming =
         testData
         |> Seq.map (fun (array, result) -> array |> Array.toList, result)

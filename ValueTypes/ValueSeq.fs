@@ -26,6 +26,15 @@ module ValueSeq =
         let mutable iter = source |> getIterator
         if iter.MoveNext () then ValueSome iter.Current else ValueNone
 
+    [<CompiledName("TryLast")>]
+    let tryLast (source : #ValueSeq<'a,_>) : 'a voption =
+        let mutable iter = getIterator source
+        let mutable lastElement = ValueNone
+
+        while iter.MoveNext() do
+            lastElement <- ValueSome iter.Current
+        lastElement
+
     [<CompiledName("Iterate")>]
     let iter (action : 'a -> unit) (source : #ValueSeq<'a,_>) : unit =
         let mutable iter = source |> getIterator
@@ -84,7 +93,16 @@ module ValueSeq =
         : Enumerables.MappedValueSeq<_,_,_,_>
         =
         Enumerables.MappedValueSeq(mapping, source)
-    
+
+    [<CompiledName("Scan")>]
+    let scan
+        (folder : 'state -> 'a -> 'state)
+        (state : 'state)
+        (source : #ValueSeq<'a,_>)
+        : Enumerables.ScanningValueSeq<_,_,_,_>
+        =
+        Enumerables.ScanningValueSeq(folder, state, source)
+
     [<CompiledName("OfArray")>]
     let ofArray (array : 'a array) =
         Enumerables.ArrayValueSeq(array)

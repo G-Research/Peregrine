@@ -198,3 +198,34 @@ module Enumerators =
             member this.Current : obj = this.enumerator.Current |> this.mapping |> box
             
             member this.Dispose () = this.enumerator.Dispose()
+
+    [<Struct>]
+    type Scanning<'a, 'state, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val mutable private folder : 'state -> 'a -> 'state
+        val mutable private state : 'state
+        val mutable private enumerator : 'enumerator
+
+        new (folder : 'state -> 'a -> 'state, state : 'state, enumerator : 'enumerator) = {
+            folder = folder
+            state = state
+            enumerator = enumerator
+        }
+
+        interface 'state IEnumerator with
+            member this.MoveNext() : bool =
+                if this.enumerator.MoveNext() then
+                    this.state <- this.folder this.state this.enumerator.Current
+                    true
+                else
+                    false
+
+            member this.Reset() : unit = failwith "Unsupported operation"
+
+            member this.Current : 'state = this.state
+
+            member this.Current : obj = this.state |> box
+
+            member this.Dispose () = this.enumerator.Dispose()
