@@ -158,6 +158,7 @@ module ValueSeqTransformTests =
         [1; 2; 4; 8]
         |> ValueSeq.ofList
         |> ValueSeq.scan (+) 0
+        |> ValueSeq.toSeq
         |> should equal [1; 3; 7; 15]
 
     [<Test>]
@@ -165,4 +166,5 @@ module ValueSeqTransformTests =
         []
         |> ValueSeq.ofList
         |> ValueSeq.scan (+) 0
+        |> ValueSeq.toSeq
         |> should be Empty
