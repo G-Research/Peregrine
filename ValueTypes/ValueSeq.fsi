@@ -121,7 +121,7 @@ module ValueSeq =
     /// Return a ValueSeq that contains elements that are the result of applying the folder over the input ValueSeq with
     /// the given initial state
     [<CompiledName("Scan")>]
-    val scan<'a, 'state, 'enumerable, 'enumerator
+    val scan<'state, 'a, 'enumerable, 'enumerator
         when 'enumerable :> ValueSeq<'a, 'enumerator>
         and 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
