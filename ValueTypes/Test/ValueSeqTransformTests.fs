@@ -148,3 +148,23 @@ module ValueSeqTransformTests =
         |> ValueSeq.map id
         |> ValueSeq.toSeq
         |> should be Empty
+
+    //
+    // ValueSeq.scan tests
+    //
+
+    [<Test>]
+    let ``Test summing over a list with ValueSeq.scan`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.scan (+) 0
+        |> ValueSeq.toSeq
+        |> should equal [0; 1; 3; 7; 15]
+
+    [<Test>]
+    let ``Test ValueSeq.scan over an empty list`` () =
+        []
+        |> ValueSeq.ofList
+        |> ValueSeq.scan (+) 0
+        |> ValueSeq.toSeq
+        |> should equal [0]

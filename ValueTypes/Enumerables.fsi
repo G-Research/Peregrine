@@ -50,3 +50,12 @@ module Enumerables =
         =
         new : ('a -> 'b) * 'enumerable -> MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
         interface ValueSeq<'b, Enumerators.Mapped<'a, 'b, 'enumerator>>
+
+    [<Struct; NoEquality; NoComparison>]
+    type ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        =
+        new : ('state -> 'a -> 'state) * 'state * 'enumerable -> ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable>
+        interface ValueSeq<'state, Enumerators.Scanned<'a, 'state, 'enumerator>>

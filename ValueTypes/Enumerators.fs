@@ -198,3 +198,43 @@ module Enumerators =
             member this.Current : obj = this.enumerator.Current |> this.mapping |> box
             
             member this.Dispose () = this.enumerator.Dispose()
+
+    [<Struct>]
+    type Scanned<'a, 'state, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private folder : 'state -> 'a -> 'state
+        val private init : 'state
+        val mutable private enumerator : 'enumerator
+        val mutable private state : 'state ValueOption
+
+        new (folder : 'state -> 'a -> 'state, init : 'state, enumerator : 'enumerator) = {
+            folder = folder
+            init = init
+            enumerator = enumerator
+            state = ValueNone
+        }
+
+        interface 'state IEnumerator with
+            member this.MoveNext() : bool =
+                match this.state with
+                | ValueNone ->
+                    this.state <- ValueSome this.init
+                    true
+                | ValueSome state ->
+                    if this.enumerator.MoveNext() then
+                        this.state <- ValueSome (this.folder state this.enumerator.Current)
+                        true
+                    else
+                        false
+
+            member this.Reset() : unit =
+                this.state <- ValueNone
+                this.enumerator.Reset()
+
+            member this.Current : 'state = this.state.Value
+
+            member this.Current : obj = this.state.Value |> box
+
+            member this.Dispose () = this.enumerator.Dispose()

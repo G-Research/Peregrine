@@ -69,3 +69,16 @@ module Enumerators =
         val mutable private enumerator : 'enumerator
         new : ('a -> 'b) * 'enumerator -> Mapped<'a, 'b, 'enumerator>
         interface 'b IEnumerator
+
+    /// Value-type enumerator that folds over another value-type enumerator and gives a sequence of the folder state
+    [<Struct>]
+    type Scanned<'a, 'state, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private folder : 'state -> 'a -> 'state
+        val private init : 'state
+        val mutable private enumerator : 'enumerator
+        val mutable private state : 'state ValueOption
+        new : ('state -> 'a -> 'state) * 'state * 'enumerator -> Scanned<'a, 'state, 'enumerator>
+        interface 'state IEnumerator

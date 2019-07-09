@@ -26,6 +26,16 @@ module ValueSeq =
         source : 'enumerable ->
         'a voption
 
+    /// If the sequence is non-empty, get its last element, otherwise return ValueNone
+    [<CompiledName("TryLast")>]
+    val tryLast<'enumerable, 'a, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        :
+        source : 'enumerable ->
+        'a voption
+
     /// Iterate through the sequence, applying the given action to each element
     [<CompiledName("Iterate")>]
     val iter<'a, 'enumerable, 'enumerator
@@ -107,7 +117,20 @@ module ValueSeq =
         mapping : ('a -> 'b) ->
         source : 'enumerable ->
         Enumerables.MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
-            
+
+    /// Return a ValueSeq that contains elements that are the result of applying the folder over the input ValueSeq with
+    /// the given initial state
+    [<CompiledName("Scan")>]
+    val scan<'state, 'a, 'enumerable, 'enumerator
+        when 'enumerable :> ValueSeq<'a, 'enumerator>
+        and 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        :
+        folder : ('state -> 'a -> 'state) ->
+        state : 'state ->
+        source : 'enumerable ->
+        Enumerables.ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable>
+
     /// Returns a ValueSeq enumerable backed by the given array
     [<CompiledName("OfArray")>]
     val ofArray<'a> :
