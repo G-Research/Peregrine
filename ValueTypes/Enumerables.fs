@@ -64,13 +64,13 @@ module Enumerables =
                 new Enumerators.Mapped<'a, 'b, _>(mapping, enumerator)
 
     [<Struct>]
-    type ScanningValueSeq<'a, 'state, 'enumerator, 'enumerable
+    type ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
         (folder : 'state -> 'a -> 'state, state : 'state, enumerable : 'enumerable)
         =
-        interface ValueSeq<'state, Enumerators.Scanning<'a, 'state, 'enumerator>> with
+        interface ValueSeq<'state, Enumerators.Scanned<'a, 'state, 'enumerator>> with
             member this.GetEnumerator () =
                 let enumerator = enumerable.GetEnumerator()
-                new Enumerators.Scanning<'a, 'state, _>(folder, state, enumerator)
+                new Enumerators.Scanned<'a, 'state, _>(folder, state, enumerator)

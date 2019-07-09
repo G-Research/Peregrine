@@ -129,7 +129,7 @@ module ValueSeq =
         folder : ('state -> 'a -> 'state) ->
         state : 'state ->
         source : 'enumerable ->
-        Enumerables.ScanningValueSeq<'a, 'state, 'enumerator, 'enumerable>
+        Enumerables.ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable>
 
     /// Returns a ValueSeq enumerable backed by the given array
     [<CompiledName("OfArray")>]

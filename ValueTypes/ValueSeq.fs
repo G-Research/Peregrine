@@ -99,9 +99,9 @@ module ValueSeq =
         (folder : 'state -> 'a -> 'state)
         (state : 'state)
         (source : #ValueSeq<'a,_>)
-        : Enumerables.ScanningValueSeq<_,_,_,_>
+        : Enumerables.ScannedValueSeq<_,_,_,_>
         =
-        Enumerables.ScanningValueSeq(folder, state, source)
+        Enumerables.ScannedValueSeq(folder, state, source)
 
     [<CompiledName("OfArray")>]
     let ofArray (array : 'a array) =

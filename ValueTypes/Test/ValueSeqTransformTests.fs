@@ -159,7 +159,7 @@ module ValueSeqTransformTests =
         |> ValueSeq.ofList
         |> ValueSeq.scan (+) 0
         |> ValueSeq.toSeq
-        |> should equal [1; 3; 7; 15]
+        |> should equal [0; 1; 3; 7; 15]
 
     [<Test>]
     let ``Test ValueSeq.scan over an empty list`` () =
@@ -167,4 +167,4 @@ module ValueSeqTransformTests =
         |> ValueSeq.ofList
         |> ValueSeq.scan (+) 0
         |> ValueSeq.toSeq
-        |> should be Empty
+        |> should equal [0]

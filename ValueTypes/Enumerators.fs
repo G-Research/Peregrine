@@ -200,32 +200,41 @@ module Enumerators =
             member this.Dispose () = this.enumerator.Dispose()
 
     [<Struct>]
-    type Scanning<'a, 'state, 'enumerator
+    type Scanned<'a, 'state, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
-        val mutable private folder : 'state -> 'a -> 'state
-        val mutable private state : 'state
+        val private folder : 'state -> 'a -> 'state
+        val private init : 'state
         val mutable private enumerator : 'enumerator
+        val mutable private state : 'state ValueOption
 
-        new (folder : 'state -> 'a -> 'state, state : 'state, enumerator : 'enumerator) = {
+        new (folder : 'state -> 'a -> 'state, init : 'state, enumerator : 'enumerator) = {
             folder = folder
-            state = state
+            init = init
             enumerator = enumerator
+            state = ValueNone
         }
 
         interface 'state IEnumerator with
             member this.MoveNext() : bool =
-                if this.enumerator.MoveNext() then
-                    this.state <- this.folder this.state this.enumerator.Current
+                match this.state with
+                | ValueNone ->
+                    this.state <- ValueSome this.init
                     true
-                else
-                    false
+                | ValueSome state ->
+                    if this.enumerator.MoveNext() then
+                        this.state <- ValueSome (this.folder state this.enumerator.Current)
+                        true
+                    else
+                        false
 
-            member this.Reset() : unit = failwith "Unsupported operation"
+            member this.Reset() : unit =
+                this.state <- ValueNone
+                this.enumerator.Reset()
 
-            member this.Current : 'state = this.state
+            member this.Current : 'state = this.state.Value
 
-            member this.Current : obj = this.state |> box
+            member this.Current : obj = this.state.Value |> box
 
             member this.Dispose () = this.enumerator.Dispose()

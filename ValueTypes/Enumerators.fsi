@@ -72,12 +72,13 @@ module Enumerators =
 
     /// Value-type enumerator that folds over another value-type enumerator and gives a sequence of the folder state
     [<Struct>]
-    type Scanning<'a, 'state, 'enumerator
+    type Scanned<'a, 'state, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
         =
-        val mutable private folder : 'state -> 'a -> 'state
-        val mutable private state : 'state
+        val private folder : 'state -> 'a -> 'state
+        val private init : 'state
         val mutable private enumerator : 'enumerator
-        new : ('state -> 'a -> 'state) * 'state * 'enumerator -> Scanning<'a, 'state, 'enumerator>
+        val mutable private state : 'state ValueOption
+        new : ('state -> 'a -> 'state) * 'state * 'enumerator -> Scanned<'a, 'state, 'enumerator>
         interface 'state IEnumerator
