@@ -1,5 +1,7 @@
 # Peregrine ValueTypes
 
+[![Version](https://img.shields.io/nuget/v/PeregrineValueTypes.svg?label=NuGet)](https://www.nuget.org/packages/PeregrineValueTypes)
+
 This library, which is part of the Peregrine series of code for real-time and performant applications, contains F# functions for manipulating data structures in ways that don't allocate. It tests this fact by using BenchmarkDotNet to assert that the number of allocations made by its functions are zero.
 
 The core modules of this library are:

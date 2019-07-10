@@ -3,5 +3,11 @@
   "version": "2.1",
   "publicReleaseRefSpec": [
     "^refs/heads/master$"
-  ]
+  ],
+  "cloudBuild": {
+    "buildNumber": {
+      "enabled": true
+     },
+     "setVersionVariables": true
+  }
 }
