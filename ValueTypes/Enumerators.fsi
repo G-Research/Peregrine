@@ -70,6 +70,19 @@ module Enumerators =
         new : ('a -> 'b) * 'enumerator -> Mapped<'a, 'b, 'enumerator>
         interface 'b IEnumerator
 
+    /// Value-type enumerator that transforms the elements of another value-type enumerator according to the given
+    /// mapping function and the elements' indices.
+    [<Struct>]
+    type MapIndexed<'a, 'b, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private mapping : int -> 'a -> 'b
+        val mutable private enumerator : 'enumerator
+        val mutable private index : int
+        new : (int -> 'a -> 'b) * 'enumerator -> MapIndexed<'a, 'b, 'enumerator>
+        interface 'b IEnumerator
+    
     /// Value-type enumerator that folds over another value-type enumerator and gives a sequence of the folder state
     [<Struct>]
     type Scanned<'a, 'state, 'enumerator

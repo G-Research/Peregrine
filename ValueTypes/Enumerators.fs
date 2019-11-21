@@ -198,7 +198,43 @@ module Enumerators =
             member this.Current : obj = this.enumerator.Current |> this.mapping |> box
             
             member this.Dispose () = this.enumerator.Dispose()
-
+    
+    [<Struct>]
+    type MapIndexed<'a, 'b, 'enumerator
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        =
+        val private mapping : int -> 'a -> 'b
+        val mutable private enumerator : 'enumerator
+        val mutable index : int
+        
+        new (mapping : int -> 'a -> 'b, enumerator : 'enumerator) = {
+            mapping = mapping
+            enumerator = enumerator
+            index = -1
+        }
+        
+        interface 'b IEnumerator with
+            member this.MoveNext () : bool =
+                if this.enumerator.MoveNext () then
+                    this.index <- this.index + 1
+                    true
+                else
+                    false
+            
+            member this.Reset () : unit =
+                this.enumerator.Reset ()
+                this.index <- -1
+            
+            member this.Current : 'b =
+                this.mapping this.index this.enumerator.Current
+            
+            member this.Current : obj =
+                this.mapping this.index this.enumerator.Current |> box
+            
+            member this.Dispose () =
+                this.enumerator.Dispose ()
+    
     [<Struct>]
     type Scanned<'a, 'state, 'enumerator
         when 'enumerator :> IEnumerator<'a>

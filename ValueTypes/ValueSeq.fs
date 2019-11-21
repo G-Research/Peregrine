@@ -94,6 +94,14 @@ module ValueSeq =
         =
         Enumerables.MappedValueSeq(mapping, source)
 
+    [<CompiledName("MapIndexed")>]
+    let mapi
+        (mapping : int -> 'a -> 'b)
+        (source : #ValueSeq<'a,_>)
+        : Enumerables.MapIndexedValueSeq<_,_,_,_>
+        =
+        Enumerables.MapIndexedValueSeq(mapping, source)
+    
     [<CompiledName("Scan")>]
     let scan
         (folder : 'state -> 'a -> 'state)

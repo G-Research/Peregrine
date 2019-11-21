@@ -118,6 +118,18 @@ module ValueSeq =
         source : 'enumerable ->
         Enumerables.MappedValueSeq<'a, 'b, 'enumerator, 'enumerable>
 
+    /// Return a ValueSeq that contains the elements of the passed in ValueSeq but with the mapping function applied.
+    /// The mapping function is passed in the index of the element in the sequence.
+    [<CompiledName("MapIndexed")>]
+    val mapi<'a, 'b, 'enumerable, 'enumerator
+        when 'enumerable :> ValueSeq<'a, 'enumerator>
+        and 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct>
+        :
+        mapping : (int -> 'a -> 'b) ->
+        source : 'enumerable ->
+        Enumerables.MapIndexedValueSeq<'a, 'b, 'enumerator, 'enumerable>
+    
     /// Return a ValueSeq that contains elements that are the result of applying the folder over the input ValueSeq with
     /// the given initial state
     [<CompiledName("Scan")>]
