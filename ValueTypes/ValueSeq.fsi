@@ -38,7 +38,7 @@ module ValueSeq =
 
     /// Iterate through the sequence, applying the given action to each element
     [<CompiledName("Iterate")>]
-    val iter<'a, 'enumerable, 'enumerator
+    val inline iter<'a, 'enumerable, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
@@ -50,7 +50,7 @@ module ValueSeq =
     /// Iterate through the ValueSeq, applying the given action to each element. The action is passed the element's index
     /// in addition to the element itself
     [<CompiledName("IterateIndexed")>]
-    val iteri<'a, 'enumerable, 'enumerator
+    val inline iteri<'a, 'enumerable, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
@@ -61,7 +61,7 @@ module ValueSeq =
 
     /// Fold over the given ValueSeq
     [<CompiledName("Fold")>]
-    val fold<'state, 'a, 'enumerable, 'enumerator
+    val inline fold<'state, 'a, 'enumerable, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
@@ -74,7 +74,7 @@ module ValueSeq =
     /// Returns a ValueSeq that contains only elements of the provided ValueSeq for which the passed in predicate
     /// returned true. In other words: elements up until the first element that returned false.
     [<CompiledName("TakeWhile")>]
-    val takeWhile<'a, 'enumerable, 'enumerator
+    val inline takeWhile<'a, 'enumerable, 'enumerator
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct
         and 'enumerable :> ValueSeq<'a, 'enumerator>>
@@ -109,7 +109,7 @@ module ValueSeq =
     
     /// Return a ValueSeq that contains the elements of the passed in ValueSeq but with the mapping function applied.
     [<CompiledName("Map")>]
-    val map<'a, 'b, 'enumerable, 'enumerator
+    val inline map<'a, 'b, 'enumerable, 'enumerator
         when 'enumerable :> ValueSeq<'a, 'enumerator>
         and 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
@@ -121,7 +121,7 @@ module ValueSeq =
     /// Return a ValueSeq that contains the elements of the passed in ValueSeq but with the mapping function applied.
     /// The mapping function is passed in the index of the element in the sequence.
     [<CompiledName("MapIndexed")>]
-    val mapi<'a, 'b, 'enumerable, 'enumerator
+    val inline mapi<'a, 'b, 'enumerable, 'enumerator
         when 'enumerable :> ValueSeq<'a, 'enumerator>
         and 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
@@ -133,7 +133,7 @@ module ValueSeq =
     /// Return a ValueSeq that contains elements that are the result of applying the folder over the input ValueSeq with
     /// the given initial state
     [<CompiledName("Scan")>]
-    val scan<'state, 'a, 'enumerable, 'enumerator
+    val inline scan<'state, 'a, 'enumerable, 'enumerator
         when 'enumerable :> ValueSeq<'a, 'enumerator>
         and 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct>
