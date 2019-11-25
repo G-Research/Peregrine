@@ -52,6 +52,15 @@ module Enumerables =
         interface ValueSeq<'b, Enumerators.Mapped<'a, 'b, 'enumerator>>
 
     [<Struct; NoEquality; NoComparison>]
+    type MapIndexedValueSeq<'a, 'b, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        =
+        new : (int -> 'a -> 'b) * 'enumerable -> MapIndexedValueSeq<'a, 'b, 'enumerator, 'enumerable>
+        interface ValueSeq<'b, Enumerators.MapIndexed<'a, 'b, 'enumerator>>
+    
+    [<Struct; NoEquality; NoComparison>]
     type ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct

@@ -10,6 +10,7 @@ type ValueSeqTransformAllocationTests ()  =
     // sure they're realised before the test code is executed
     let add = (+) |> id
     let times2 = (fun x -> x * 2) |> id
+    let timesi = (fun i x -> i * x) |> id
     let not4 = (fun x -> not(x = 4)) |> id
     // Give us somewhere to store the result, lest it be optimised away
     let mutable result = ValueNone
@@ -54,6 +55,16 @@ type ValueSeqTransformAllocationTests ()  =
     member this.Map () =
         let times2 = ValueSeq.map times2 data
         result <- ValueSome (ValueSeq.fold add 0 times2)
+        
+    [<PerfBenchmark(Description="Check that ValueSeq.mapi doesn't allocate",
+                    NumberOfIterations = 1,
+                    RunMode = RunMode.Throughput,
+                    TestMode = TestMode.Test,
+                    SkipWarmups = true)>]
+    [<MemoryAssertion(MemoryMetric.TotalBytesAllocated, MustBe.ExactlyEqualTo, 0.0)>]
+    member this.MapIndexed () =
+        let timesi = ValueSeq.mapi timesi data
+        result <- ValueSome (ValueSeq.fold add 0 timesi)
         
     [<PerfCleanup>]
     member this.Teardown() =

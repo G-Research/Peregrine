@@ -36,34 +36,34 @@ module ValueSeq =
         lastElement
 
     [<CompiledName("Iterate")>]
-    let iter (action : 'a -> unit) (source : #ValueSeq<'a,_>) : unit =
-        let mutable iter = source |> getIterator
+    let inline iter (action : 'a -> unit) (source : #ValueSeq<'a,_>) : unit =
+        let mutable iter = source.GetEnumerator ()
         while iter.MoveNext() do iter.Current |> action
 
     [<CompiledName("IterateIndexed")>]
-    let iteri (action : int -> 'a -> unit) (source : #ValueSeq<'a,_>) : unit =
-        let mutable iter = source |> getIterator
+    let inline iteri (action : int -> 'a -> unit) (source : #ValueSeq<'a,_>) : unit =
+        let mutable iter = source.GetEnumerator ()
         let mutable index = -1
         while iter.MoveNext() do
             index <- index + 1
             action index iter.Current
 
     [<CompiledName("Fold")>]
-    let fold
+    let inline fold
         (folder : 'state -> 'a -> 'state)
         (state : 'state)
         (source : #ValueSeq<'a, 'enumerator>)
         : 'state
         =
         let mutable currentState = state
-        let mutable iter = source |> getIterator
+        let mutable iter = source.GetEnumerator ()
 
         while iter.MoveNext() do
             currentState <- folder currentState iter.Current
         currentState
 
     [<CompiledName("TakeWhile")>]
-    let takeWhile
+    let inline takeWhile
         (predicate : 'a -> bool)
         (source : #ValueSeq<'a, 'enumerator>)
         : Enumerables.PredicatedValueSeq<_,_,_>
@@ -87,15 +87,23 @@ module ValueSeq =
         Enumerables.TruncatedValueSeq(count, source)
     
     [<CompiledName("Map")>]
-    let map
+    let inline map
         (mapping : 'a -> 'b)
         (source : #ValueSeq<'a,_>)
         : Enumerables.MappedValueSeq<_,_,_,_>
         =
         Enumerables.MappedValueSeq(mapping, source)
 
+    [<CompiledName("MapIndexed")>]
+    let inline mapi
+        (mapping : int -> 'a -> 'b)
+        (source : #ValueSeq<'a,_>)
+        : Enumerables.MapIndexedValueSeq<_,_,_,_>
+        =
+        Enumerables.MapIndexedValueSeq(mapping, source)
+    
     [<CompiledName("Scan")>]
-    let scan
+    let inline scan
         (folder : 'state -> 'a -> 'state)
         (state : 'state)
         (source : #ValueSeq<'a,_>)

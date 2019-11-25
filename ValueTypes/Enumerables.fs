@@ -64,6 +64,18 @@ module Enumerables =
                 new Enumerators.Mapped<'a, 'b, _>(mapping, enumerator)
 
     [<Struct>]
+    type MapIndexedValueSeq<'a, 'b, 'enumerator, 'enumerable
+        when 'enumerator :> IEnumerator<'a>
+        and 'enumerator : struct
+        and 'enumerable :> ValueSeq<'a, 'enumerator>>
+        (mapping : int -> 'a -> 'b, enumerable : 'enumerable)
+        =
+        interface ValueSeq<'b, Enumerators.MapIndexed<'a, 'b, 'enumerator>> with
+            member this.GetEnumerator () =
+                let enumerator = enumerable.GetEnumerator()
+                new Enumerators.MapIndexed<'a, 'b, _>(mapping, enumerator)
+    
+    [<Struct>]
     type ScannedValueSeq<'a, 'state, 'enumerator, 'enumerable
         when 'enumerator :> IEnumerator<'a>
         and 'enumerator : struct

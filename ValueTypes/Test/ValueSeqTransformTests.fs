@@ -150,6 +150,26 @@ module ValueSeqTransformTests =
         |> should be Empty
 
     //
+    // ValueSeq.mapi tests
+    //
+    
+    [<Test>]
+    let ``Test mapping over some sequence and use the index`` () =
+        [1; 2; 4; 8]
+        |> ValueSeq.ofList
+        |> ValueSeq.mapi (fun i x -> i * x)
+        |> ValueSeq.toSeq
+        |> should equal [0; 2; 8; 24]
+    
+    [<Test>]
+    let ``Test mapping with an index over the empty sequence`` () =
+        []
+        |> ValueSeq.ofList
+        |> ValueSeq.mapi (fun _ x -> x)
+        |> ValueSeq.toSeq
+        |> should be Empty
+    
+    //
     // ValueSeq.scan tests
     //
 
